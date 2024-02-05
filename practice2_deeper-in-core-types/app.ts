@@ -27,3 +27,11 @@
 
 //* assign type to an Array *//
 
+let hobbies: string[];
+
+hobbies = ["sports", "programming"];
+
+hobbies.forEach((hobby) => {
+  console.log(hobby.toLocaleUpperCase);
+    // hobby.map(); //! Error !//
+});
