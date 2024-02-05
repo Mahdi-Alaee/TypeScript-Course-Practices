@@ -1,6 +1,9 @@
-function plus(num1, num2) {
-    if (num2)
+function plus(num1, num2, showResult) {
+    var result = num1 + num2;
+    if (showResult)
+        console.log(result);
+    else
         return num1 + num2;
-    return "can't plus with one number";
 }
-console.log(plus(5, 5));
+var showResult = false;
+console.log(plus(5, 5, showResult));
