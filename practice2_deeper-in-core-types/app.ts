@@ -47,22 +47,34 @@
 
 //* new type whose name is enum *//
 
-enum Role {
-  ADMIN = "ADMIN",
-  READ_ONLY = "READ_ONLY",
-  AUTHOR = "AUTHOR",
-}
+// enum Role {
+//   ADMIN = "ADMIN",
+//   READ_ONLY = "READ_ONLY",
+//   AUTHOR = "AUTHOR",
+// }
 
-let article: { title: string; desc: string; author: string }[];
+// let article: { title: string; desc: string; author: string }[];
 
-article = [
-  {
-    title: "js-vs-java",
-    desc: "let`s check the deferent between js and java",
-    author: Role.ADMIN,
-  },
-];
+// article = [
+//   {
+//     title: "js-vs-java",
+//     desc: "let`s check the deferent between js and java",
+//     author: Role.ADMIN,
+//   },
+// ];
 
-if(article[0].author === Role.ADMIN){
-  console.log('this article is created by admin');
+// if(article[0].author === Role.ADMIN){
+//   console.log('this article is created by admin');
+// }
+
+//* Union Types *//
+
+function combine(input1: number | string, input2: number | string) {
+  let result: number | string;
+  if (typeof input1 === "number" && typeof input2 === "string")
+    result = input1 + input2;
+  else 
+    result = input1.toString() + input2.toString();
+
+  return result;
 }
