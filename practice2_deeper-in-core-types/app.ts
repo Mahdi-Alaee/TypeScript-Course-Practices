@@ -69,12 +69,35 @@
 
 //* Union Types *//
 
-function combine(input1: number | string, input2: number | string) {
+// function combine(input1: number | string, input2: number | string) {
+//   let result: number | string;
+//   if (typeof input1 === "number" && typeof input2 === "string")
+//     result = input1 + input2;
+//   else
+//     result = input1.toString() + input2.toString();
+
+//   return result;
+// }
+
+//* Literal Types *//
+
+function combine(
+  input1: number | string,
+  input2: number | string,
+  functionBehavior: "as-text" | "as-number"
+) {
   let result: number | string;
-  if (typeof input1 === "number" && typeof input2 === "string")
-    result = input1 + input2;
-  else 
-    result = input1.toString() + input2.toString();
+
+  if (functionBehavior === "as-number") result = +input1 + +input2;
+  else result = input1.toString() + input2.toString();
 
   return result;
 }
+
+console.log(combine(12, 8, "as-text"));
+
+console.log(combine("12", "8", "as-number"));
+
+console.log(combine("mahdi ", "alaee", "as-text"));
+
+console.log(combine("mahdi", "alaee", "as-number"));
