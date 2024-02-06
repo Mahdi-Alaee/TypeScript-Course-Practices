@@ -104,10 +104,28 @@
 
 //* function return types *//
 
+// function sum(n1: number, n2: number): number {
+//   return n1 + n2;
+// }
+
+// const result = sum(12, 8);
+
+// console.log(result);
+
+//* function as type *//
+
 function sum(n1: number, n2: number): number {
   return n1 + n2;
 }
 
-const result = sum(12, 8);
+function showResult(num: number) {
+  console.log("result: " + num);
+}
 
-console.log(result);
+let myFunc: (a: number, b: number) => number;
+
+myFunc = sum;
+showResult(myFunc(12, 8));
+
+myFunc = showResult;
+
