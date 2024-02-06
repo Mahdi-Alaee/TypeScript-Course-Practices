@@ -114,18 +114,35 @@
 
 //* function as type *//
 
-function sum(n1: number, n2: number): number {
-  return n1 + n2;
-}
+// function sum(n1: number, n2: number): number {
+//   return n1 + n2;
+// }
 
-function showResult(num: number) {
-  console.log("result: " + num);
-}
+// function showResult(num: number) {
+//   console.log("result: " + num);
+// }
 
-let myFunc: (a: number, b: number) => number;
+// let myFunc: (a: number, b: number) => number;
 
-myFunc = sum;
-showResult(myFunc(12, 8));
+// myFunc = sum;
+// showResult(myFunc(12, 8));
 
-myFunc = showResult;
+// myFunc = showResult;
 
+//* function types callbacks *//
+
+type sumAndCallBack = (
+  a: number,
+  b: number,
+  callback: (num: number) => void
+) => void;
+
+let sumAndShowResult: sumAndCallBack;
+
+sumAndShowResult = (num1: number, num2: number, cb) => {
+  cb(num1 + num2);
+};
+
+sumAndShowResult(12, 8, (result) => {
+  console.log("result: " + result);
+});
