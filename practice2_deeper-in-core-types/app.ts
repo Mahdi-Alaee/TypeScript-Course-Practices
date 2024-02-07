@@ -149,11 +149,19 @@
 
 //* unknown Type *//
 
-let userInput: unknown;
-let userName: string;
+// let userInput: unknown;
+// let userName: string;
 
-userInput = "ali";
-userInput = 12;
+// userInput = "ali";
+// userInput = 12;
 
-if (typeof userInput === "string")
- userName = userInput;
+// if (typeof userInput === "string")
+//  userName = userInput;
+
+//* never type *//
+
+errorGenerator('salam', 404);
+
+function errorGenerator(message: string, errorCode: number): never {
+  throw { message, errorCode };
+}
