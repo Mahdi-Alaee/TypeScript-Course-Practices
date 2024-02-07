@@ -131,18 +131,29 @@
 
 //* function types callbacks *//
 
-type sumAndCallBack = (
-  a: number,
-  b: number,
-  callback: (num: number) => void
-) => void;
+// type sumAndCallBack = (
+//   a: number,
+//   b: number,
+//   callback: (num: number) => void
+// ) => void;
 
-let sumAndShowResult: sumAndCallBack;
+// let sumAndShowResult: sumAndCallBack;
 
-sumAndShowResult = (num1: number, num2: number, cb) => {
-  cb(num1 + num2);
-};
+// sumAndShowResult = (num1: number, num2: number, cb) => {
+//   cb(num1 + num2);
+// };
 
-sumAndShowResult(12, 8, (result) => {
-  console.log("result: " + result);
-});
+// sumAndShowResult(12, 8, (result) => {
+//   console.log("result: " + result);
+// });
+
+//* unknown Type *//
+
+let userInput: unknown;
+let userName: string;
+
+userInput = "ali";
+userInput = 12;
+
+if (typeof userInput === "string")
+ userName = userInput;
