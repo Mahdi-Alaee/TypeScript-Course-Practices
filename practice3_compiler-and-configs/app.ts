@@ -1,1 +1,4 @@
-console.log('test');
+let username: string;
+username = 'ali';
+
+console.log(username);
