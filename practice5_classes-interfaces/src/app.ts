@@ -1,9 +1,9 @@
 class Department {
   //   name: string;
-  //   id: string;
+  //   private readonly id: string;
   private employees: string[] = [];
 
-  constructor(private id: string, public name: string) {
+  constructor(private readonly id: string, public name: string) {
     // this.name = name;
     // this.id = id;
   }
@@ -19,10 +19,16 @@ class Department {
   getEmployees() {
     return this.employees;
   }
+
+  changeIdValue(newValue: string){
+    this.id = newValue; //! can't do It because of "readonly" attribute
+  }
 }
 
 const accounting = new Department("1", "accounting");
 
+accounting.describe();
+accounting.changeIdValue('2');
 accounting.describe();
 accounting.addEmployee("Ali");
 accounting.addEmployee("Hasan");
