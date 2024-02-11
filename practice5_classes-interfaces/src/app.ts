@@ -1,7 +1,7 @@
 class Department {
   //   name: string;
   //   private readonly id: string;
-  private employees: string[] = [];
+  protected employees: string[] = [];
 
   constructor(private readonly id: string, public name: string) {
     // this.name = name;
@@ -17,7 +17,7 @@ class Department {
   }
 
   getEmployees() {
-    return 'employees: ' + this.employees;
+    return "employees: " + this.employees;
   }
 }
 
@@ -33,12 +33,17 @@ class ITDepartment extends Department {
   }
 
   printAdmins() {
-    console.log("admins: " +  this.admins);
+    console.log("admins: " + this.admins);
+  }
+
+  addEmployee(newEmployee: string): void {
+    if (newEmployee.toLocaleLowerCase() !== "mahdi")
+     this.employees.push(newEmployee);
   }
 }
 
 class AccountingDepartment extends ITDepartment {
-  reports: string[] = [];
+  protected reports: string[] = [];
 
   constructor(id: string) {
     super(id);
@@ -49,7 +54,12 @@ class AccountingDepartment extends ITDepartment {
   }
 
   printReports() {
-    console.log('reports: ' + this.reports);
+    console.log("reports: " + this.reports);
+  }
+
+  addAdmin(name: string): void {
+    if(name.toLocaleLowerCase() !== 'mahdi')
+      this.admins.push(name);
   }
 }
 
@@ -59,10 +69,10 @@ const it = new ITDepartment("IT1");
 
 it.describe();
 
+it.addEmployee("Mahdi");
 it.addEmployee("Ali");
 it.addEmployee("Hasan");
 it.addEmployee("Saman");
-it.addEmployee("Mahdi");
 
 it.addAdmin("mostafa");
 it.addAdmin("bagher");
@@ -81,6 +91,7 @@ const accounting = new AccountingDepartment("accounting1");
 accounting.describe();
 
 accounting.addAdmin("mahdi");
+accounting.addAdmin("mahdi2");
 accounting.addEmployee("asghar");
 accounting.addReport("something went wrong1");
 accounting.addReport("something went wrong2");
@@ -90,4 +101,3 @@ console.log(accounting.getEmployees());
 accounting.printReports();
 
 console.log(accounting);
-
