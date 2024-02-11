@@ -21,12 +21,13 @@ abstract class Department {
 
 class ITDepartment extends Department {
   admins: string[] = [];
+  private static instence: ITDepartment;
 
-  constructor(id: string) {
+  private constructor(id: string) {
     super(id, "ITDepartment");
   }
 
-  describe(this: ITDepartment): void {
+  describe() {
     console.log(`department =>   id: ${this.id}    |_|    name: ${this.name}`);
   }
 
@@ -42,19 +43,26 @@ class ITDepartment extends Department {
     if (newEmployee.toLocaleLowerCase() !== "mahdi")
       this.employees.push(newEmployee);
   }
+
+  static getInstence() {    
+    if (this.instence) return this.instence;
+    this.instence = new ITDepartment("IT1");
+    return this.instence;
+  }
 }
 
-class AccountingDepartment extends ITDepartment {
+class AccountingDepartment extends Department {
   protected reports: string[] = [];
   private _lastReport: string;
+  private admins: string[] = []
   static reportsCount: number = 0;
 
   constructor(id: string) {
-    super(id);
+    super(id, 'accountingDepartment');
     this._lastReport = this.reports[0];
   }
 
-  describe(this: AccountingDepartment): void {
+  describe() {
     console.log(`department =>   id: ${this.id}    |_|    name: ${this.name}`);
   }
 
@@ -85,11 +93,17 @@ class AccountingDepartment extends ITDepartment {
   static getReportsCount() {
     return AccountingDepartment.reportsCount;
   }
+
+  printAdmins(){
+    console.log('admins: ' + this.admins);
+    
+  }
 }
 
 //! ITDepartment !//
 
-const it = new ITDepartment("IT1");
+const it = ITDepartment.getInstence();
+const it2 = ITDepartment.getInstence();
 
 it.describe();
 
