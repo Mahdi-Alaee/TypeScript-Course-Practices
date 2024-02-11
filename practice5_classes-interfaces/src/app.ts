@@ -1,16 +1,14 @@
-class Department {
+abstract class Department {
   //   name: string;
-  //   private readonly id: string;
+  //   protected readonly id: string;
   protected employees: string[] = [];
 
-  constructor(private readonly id: string, public name: string) {
+  constructor(protected readonly id: string, public name: string) {
     // this.name = name;
     // this.id = id;
   }
 
-  describe(this: Department) {
-    console.log(`Department ${this.id} : ${this.name}`);
-  }
+  abstract describe(this: Department): void;
 
   addEmployee(newEmployee: string) {
     this.employees.push(newEmployee);
@@ -26,6 +24,10 @@ class ITDepartment extends Department {
 
   constructor(id: string) {
     super(id, "ITDepartment");
+  }
+
+  describe(this: ITDepartment): void {
+    console.log(`department =>   id: ${this.id}    |_|    name: ${this.name}`);
   }
 
   addAdmin(name: string) {
@@ -52,6 +54,10 @@ class AccountingDepartment extends ITDepartment {
     this._lastReport = this.reports[0];
   }
 
+  describe(this: AccountingDepartment): void {
+    console.log(`department =>   id: ${this.id}    |_|    name: ${this.name}`);
+  }
+
   addReport(content: string) {
     this.reports.push(content);
     this._lastReport = content;
@@ -76,7 +82,7 @@ class AccountingDepartment extends ITDepartment {
     this.addReport(newReport);
   }
 
-  static getReportsCount(){
+  static getReportsCount() {
     return AccountingDepartment.reportsCount;
   }
 }
@@ -114,7 +120,7 @@ accounting.addEmployee("asghar");
 accounting.addReport("something went wrong1");
 accounting.addReport("something went wrong2");
 
-accounting.lastReport = 'hey man'
+accounting.lastReport = "hey man";
 
 accounting.printAdmins();
 console.log(accounting.getEmployees());
@@ -122,7 +128,7 @@ accounting.printReports();
 console.log(accounting.lastReport);
 
 console.log(AccountingDepartment.getReportsCount());
-console.log(accounting.getReportsCount); //! we cant't access to it because it is a static method
-console.log(accounting.reportsCount); //! we cant't access to it because it is a static property
+// console.log(accounting.getReportsCount); //! we cant't access to it because it is a static method
+// console.log(accounting.reportsCount); //! we cant't access to it because it is a static property
 
 console.log(accounting);
