@@ -38,19 +38,22 @@ class ITDepartment extends Department {
 
   addEmployee(newEmployee: string): void {
     if (newEmployee.toLocaleLowerCase() !== "mahdi")
-     this.employees.push(newEmployee);
+      this.employees.push(newEmployee);
   }
 }
 
 class AccountingDepartment extends ITDepartment {
   protected reports: string[] = [];
+  private _lastReport: string;
 
   constructor(id: string) {
     super(id);
+    this._lastReport = this.reports[0];
   }
 
   addReport(content: string) {
     this.reports.push(content);
+    this._lastReport = content;
   }
 
   printReports() {
@@ -58,8 +61,17 @@ class AccountingDepartment extends ITDepartment {
   }
 
   addAdmin(name: string): void {
-    if(name.toLocaleLowerCase() !== 'mahdi')
-      this.admins.push(name);
+    if (name.toLocaleLowerCase() !== "mahdi") this.admins.push(name);
+  }
+
+  get lastReport() {
+    if (!this._lastReport) throw "we dont't have last report";
+    return this._lastReport;
+  }
+
+  set lastReport(newReport: string) {
+    if (!newReport) throw "last report must have value";
+    this.addReport(newReport);
   }
 }
 
@@ -96,8 +108,12 @@ accounting.addEmployee("asghar");
 accounting.addReport("something went wrong1");
 accounting.addReport("something went wrong2");
 
+accounting.lastReport = 'hey man'
+
 accounting.printAdmins();
 console.log(accounting.getEmployees());
 accounting.printReports();
+console.log(accounting.lastReport);
+
 
 console.log(accounting);
