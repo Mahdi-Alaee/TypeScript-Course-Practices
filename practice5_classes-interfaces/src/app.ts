@@ -45,6 +45,7 @@ class ITDepartment extends Department {
 class AccountingDepartment extends ITDepartment {
   protected reports: string[] = [];
   private _lastReport: string;
+  static reportsCount: number = 0;
 
   constructor(id: string) {
     super(id);
@@ -54,6 +55,7 @@ class AccountingDepartment extends ITDepartment {
   addReport(content: string) {
     this.reports.push(content);
     this._lastReport = content;
+    AccountingDepartment.reportsCount++;
   }
 
   printReports() {
@@ -72,6 +74,10 @@ class AccountingDepartment extends ITDepartment {
   set lastReport(newReport: string) {
     if (!newReport) throw "last report must have value";
     this.addReport(newReport);
+  }
+
+  static getReportsCount(){
+    return AccountingDepartment.reportsCount;
   }
 }
 
@@ -115,5 +121,8 @@ console.log(accounting.getEmployees());
 accounting.printReports();
 console.log(accounting.lastReport);
 
+console.log(AccountingDepartment.getReportsCount());
+console.log(accounting.getReportsCount); //! we cant't access to it because it is a static method
+console.log(accounting.reportsCount); //! we cant't access to it because it is a static property
 
 console.log(accounting);
