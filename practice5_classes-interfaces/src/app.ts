@@ -1,5 +1,23 @@
+interface twoNumsFunc {
+  (num1: number, num2: number): number;
+}
+
+let add: twoNumsFunc;
+
+add = (n1: number, n2: number) => n1 + n2;
+
+console.log(add(12, 8));
+
+
+
+
+
+
+
+
+
 interface named {
-    readonly name: string;
+  readonly name: string;
 }
 
 interface greetable extends named {
