@@ -111,6 +111,21 @@
 
 // const inputElem = <HTMLInputElement>document.getElementById('input-elem');
 // const inputElem = document.getElementById('input-elem') as HTMLInputElement;
-const inputElem = document.getElementById("input-elem");
+// const inputElem = document.getElementById("input-elem");
 
-(inputElem as HTMLInputElement).value = "hey man";
+// (inputElem as HTMLInputElement).value = "hey man";
+
+//* Index Properties *//
+
+interface ErrorContainer {
+  [prop: string]: string;
+  id: string;
+}
+
+let error: ErrorContainer;
+
+error = {
+  id: "12", //! It must has this property and can has many other props with string key and value
+  email: "email is invalid",
+  userName: "username is invalid",
+};
