@@ -1,15 +1,15 @@
 //* intersection types *//
 
 //! example 1
-type Admin = {
-  name: string;
-  departments: string[];
-};
+// type Admin = {
+//   name: string;
+//   departments: string[];
+// };
 
-type Employee = {
-  name: string;
-  functions: string[];
-};
+// type Employee = {
+//   name: string;
+//   functions: string[];
+// };
 
 // type ElevatedEmployee = Admin & Employee;
 
@@ -40,42 +40,69 @@ type Employee = {
 //* type gaurds *//
 
 //! example 1
-type UnknownEmployee = Admin | Employee;
+// type UnknownEmployee = Admin | Employee;
 
-function employeeLogger(emp: UnknownEmployee) {
-  if ("departments" in emp) console.log(emp.departments);
-  if ("functions" in emp) console.log(emp.functions);
-}
+// function employeeLogger(emp: UnknownEmployee) {
+//   if ("departments" in emp) console.log(emp.departments);
+//   if ("functions" in emp) console.log(emp.functions);
+// }
 
-employeeLogger({
-  name: "soheil",
-  departments: ["courses", "support"],
-  functions: ["supporter"],
-});
+// employeeLogger({
+//   name: "soheil",
+//   departments: ["courses", "support"],
+//   functions: ["supporter"],
+// });
 
 //! example 2
-class Car {
-  drive() {
-    console.log("car is driving ...");
+// class Car {
+//   drive() {
+//     console.log("car is driving ...");
+//   }
+// }
+
+// class Truck {
+//   drive() {
+//     console.log("truck is driving ...");
+//   }
+
+//   setCargo(amount: number) {
+//     console.log(`${amount} cargo seted`);
+//   }
+// }
+
+// type Vehicle = Car | Truck;
+
+// function vehicleHandler(vehicle: Vehicle) {
+//   if (vehicle instanceof Truck) vehicle.setCargo(12);
+//   vehicle.drive();
+// }
+
+// vehicleHandler(new Car());
+// vehicleHandler(new Truck());
+
+//* Discriminated Unions *//
+
+interface Bird {
+  type: "bird";
+  flyingSpeed: number;
+}
+
+interface Horse {
+  type: "horse";
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  switch (animal.type) {
+    case "bird":
+      console.log("flying speed is " + animal.flyingSpeed);
+      break;
+    case "horse":
+      console.log("running speed is " + animal.runningSpeed);
+      break;
   }
 }
 
-class Truck {
-  drive() {
-    console.log("truck is driving ...");
-  }
-
-  setCargo(amount: number) {
-    console.log(`${amount} cargo seted`);
-  }
-}
-
-type Vehicle = Car | Truck;
-
-function vehicleHandler(vehicle: Vehicle) {
-  if (vehicle instanceof Truck) vehicle.setCargo(12);
-  vehicle.drive();
-}
-
-vehicleHandler(new Car());
-vehicleHandler(new Truck());
+moveAnimal({type: 'horse', runningSpeed: 30});
