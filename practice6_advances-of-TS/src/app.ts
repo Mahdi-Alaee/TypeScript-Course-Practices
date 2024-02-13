@@ -154,14 +154,21 @@
 
 //* Optional Chaining *//
 
-const course = {
-  title: "react",
-  desc: "this is the react course",
-  author: {
-    name: "mahdi alaee",
-    job: "front-end developer",
-  },
-};
+// const course = {
+//   title: "react",
+//   desc: "this is the react course",
+//   author: {
+//     name: "mahdi alaee",
+//     job: "front-end developer",
+//   },
+// };
 
-console.log(course?.author?.name);
+// console.log(course?.author?.name);
 
+//* Nullish Coalescing *//
+
+const userInput = 0;
+
+const storedData = userInput ?? 'DEFAULT'; //! this is checking if It is null or undifined It will return "DEFAULT"
+
+console.log(storedData);
