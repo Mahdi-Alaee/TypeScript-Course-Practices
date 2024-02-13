@@ -82,27 +82,35 @@
 
 //* Discriminated Unions *//
 
-interface Bird {
-  type: "bird";
-  flyingSpeed: number;
-}
+// interface Bird {
+//   type: "bird";
+//   flyingSpeed: number;
+// }
 
-interface Horse {
-  type: "horse";
-  runningSpeed: number;
-}
+// interface Horse {
+//   type: "horse";
+//   runningSpeed: number;
+// }
 
-type Animal = Bird | Horse;
+// type Animal = Bird | Horse;
 
-function moveAnimal(animal: Animal) {
-  switch (animal.type) {
-    case "bird":
-      console.log("flying speed is " + animal.flyingSpeed);
-      break;
-    case "horse":
-      console.log("running speed is " + animal.runningSpeed);
-      break;
-  }
-}
+// function moveAnimal(animal: Animal) {
+//   switch (animal.type) {
+//     case "bird":
+//       console.log("flying speed is " + animal.flyingSpeed);
+//       break;
+//     case "horse":
+//       console.log("running speed is " + animal.runningSpeed);
+//       break;
+//   }
+// }
 
-moveAnimal({type: 'horse', runningSpeed: 30});
+// moveAnimal({type: 'horse', runningSpeed: 30});
+
+//* Casting Types *//
+
+// const inputElem = <HTMLInputElement>document.getElementById('input-elem');
+// const inputElem = document.getElementById('input-elem') as HTMLInputElement;
+const inputElem = document.getElementById("input-elem");
+
+(inputElem as HTMLInputElement).value = "hey man";
