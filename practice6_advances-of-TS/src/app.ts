@@ -117,15 +117,37 @@
 
 //* Index Properties *//
 
-interface ErrorContainer {
-  [prop: string]: string;
-  id: string;
+// interface ErrorContainer {
+//   [prop: string]: string;
+//   id: string;
+// }
+
+// let error: ErrorContainer;
+
+// error = {
+//   id: "12", //! It must has this property and can has many other props with string key and value
+//   email: "email is invalid",
+//   userName: "username is invalid",
+// };
+
+//* Function Overloads *//
+
+type combinable = number | string;
+
+// type addFunc = (a: combinable, b: combinable) => combinable;
+
+// let add: addFunc;
+
+function add(num1: number, num2: number): number;
+function add(num1: string, num2: string): string;
+function add(num1: number, num2: string): string;
+function add(num1: string, num2: number): string;
+function add(num1: combinable, num2: combinable) {
+  if (typeof num1 === "string" || typeof num2 === "string") {
+    return num1.toString() + num2.toString();
+  }
+  return num1 + num2;
 }
 
-let error: ErrorContainer;
-
-error = {
-  id: "12", //! It must has this property and can has many other props with string key and value
-  email: "email is invalid",
-  userName: "username is invalid",
-};
+const result = add("mahdi ", "alaee");
+result.split(" ");
