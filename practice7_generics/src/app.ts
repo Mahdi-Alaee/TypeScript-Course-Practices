@@ -34,7 +34,6 @@
 // console.log(mergedObj1, mergedObj2);
 
 //! Example 2
-
 // interface Lengthy {
 //   length: number;
 // }
@@ -53,9 +52,39 @@
 // console.log(countAndDescribe([]));
 
 //! Example 3
+// function extractAndConvert<T, K extends string & keyof T>(obj: T, key: K) {
+//   return `${key} is equal to => ` + obj[key];
+// }
 
-function extractAndConvert<T, K extends string & keyof T>(obj: T, key: K) {
-  return `${key} is equal to => ` + obj[key];
+// console.log(extractAndConvert({ name: "mahdi" }, "name"));
+
+//* Generic Classes *//
+
+class DataStorage<T extends string | number | boolean> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    this.data.splice(this.data.indexOf(item), 1);
+  }
+
+  getItems() {
+    return this.data;
+  }
 }
 
-console.log(extractAndConvert({ name: "mahdi" }, "name"));
+const stringData = new DataStorage<string>();
+stringData.addItem('Mahdi');
+stringData.addItem('Soheil');
+stringData.addItem('Ali');
+console.log(stringData.getItems());
+
+const numberData = new DataStorage<number>();
+numberData.addItem(1);
+numberData.addItem(3);
+numberData.addItem(5);
+console.log(numberData.getItems());
+
