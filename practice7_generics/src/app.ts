@@ -24,10 +24,30 @@
 
 //* Generic Function *//
 
-function merge<T extends object, U extends object>(objA: T, objB: U) {
-  return { ...objA, ...objB };
+//! Example 1
+// function merge<T extends object, U extends object>(objA: T, objB: U) {
+//   return { ...objA, ...objB };
+// }
+
+// const mergedObj1 = merge({ name: "mahdi" }, { age: 17 });
+// const mergedObj2 = merge({ name: "mahdi", hobbies: ['sports', 'programming'] }, { age: 17 });
+// console.log(mergedObj1, mergedObj2);
+
+//! Example 2
+
+interface Lengthy {
+  length: number;
 }
 
-const mergedObj1 = merge({ name: "mahdi" }, { age: 17 });
-const mergedObj2 = merge({ name: "mahdi", hobbies: ['sports', 'programming'] }, { age: 17 });
-console.log(mergedObj1, mergedObj2);
+function countAndDescribe<T extends Lengthy>(element: T) {
+  let describeText: string;
+  if (element.length > 0) {
+    describeText = "the length of the element is " + element.length;
+  } else describeText = "element have no length!";
+
+  return [element, describeText];
+}
+
+console.log(countAndDescribe('mahdi'));
+console.log(countAndDescribe(['mahdi', 'mohammad']));
+console.log(countAndDescribe([]));
