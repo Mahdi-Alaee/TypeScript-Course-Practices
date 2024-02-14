@@ -35,19 +35,27 @@
 
 //! Example 2
 
-interface Lengthy {
-  length: number;
+// interface Lengthy {
+//   length: number;
+// }
+
+// function countAndDescribe<T extends Lengthy>(element: T) {
+//   let describeText: string;
+//   if (element.length > 0) {
+//     describeText = "the length of the element is " + element.length;
+//   } else describeText = "element have no length!";
+
+//   return [element, describeText];
+// }
+
+// console.log(countAndDescribe('mahdi'));
+// console.log(countAndDescribe(['mahdi', 'mohammad']));
+// console.log(countAndDescribe([]));
+
+//! Example 3
+
+function extractAndConvert<T, K extends string & keyof T>(obj: T, key: K) {
+  return `${key} is equal to => ` + obj[key];
 }
 
-function countAndDescribe<T extends Lengthy>(element: T) {
-  let describeText: string;
-  if (element.length > 0) {
-    describeText = "the length of the element is " + element.length;
-  } else describeText = "element have no length!";
-
-  return [element, describeText];
-}
-
-console.log(countAndDescribe('mahdi'));
-console.log(countAndDescribe(['mahdi', 'mohammad']));
-console.log(countAndDescribe([]));
+console.log(extractAndConvert({ name: "mahdi" }, "name"));
