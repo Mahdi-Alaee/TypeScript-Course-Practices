@@ -60,31 +60,52 @@
 
 //* Generic Classes *//
 
-class DataStorage<T extends string | number | boolean> {
-  private data: T[] = [];
+// class DataStorage<T extends string | number | boolean> {
+//   private data: T[] = [];
 
-  addItem(item: T) {
-    this.data.push(item);
-  }
+//   addItem(item: T) {
+//     this.data.push(item);
+//   }
 
-  removeItem(item: T) {
-    this.data.splice(this.data.indexOf(item), 1);
-  }
+//   removeItem(item: T) {
+//     this.data.splice(this.data.indexOf(item), 1);
+//   }
 
-  getItems() {
-    return this.data;
-  }
+//   getItems() {
+//     return this.data;
+//   }
+// }
+
+// const stringData = new DataStorage<string>();
+// stringData.addItem('Mahdi');
+// stringData.addItem('Soheil');
+// stringData.addItem('Ali');
+// console.log(stringData.getItems());
+
+// const numberData = new DataStorage<number>();
+// numberData.addItem(1);
+// numberData.addItem(3);
+// numberData.addItem(5);
+// console.log(numberData.getItems());
+
+//* Generic Utility Types *//
+
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
 }
 
-const stringData = new DataStorage<string>();
-stringData.addItem('Mahdi');
-stringData.addItem('Soheil');
-stringData.addItem('Ali');
-console.log(stringData.getItems());
+function createCourseGoal(
+  title: string,
+  description: string,
+  completeUntil: Date
+) {
+  const returnObject: Partial<CourseGoal> = {}; //! "Partial" makes properties optional
+  returnObject.title = title;
+  returnObject.description = description;
+  returnObject.completeUntil = completeUntil;
+  return returnObject;
+}
 
-const numberData = new DataStorage<number>();
-numberData.addItem(1);
-numberData.addItem(3);
-numberData.addItem(5);
-console.log(numberData.getItems());
-
+console.log(createCourseGoal("react", "this is react course", new Date()));
