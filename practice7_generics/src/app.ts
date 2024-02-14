@@ -90,22 +90,31 @@
 
 //* Generic Utility Types *//
 
-interface CourseGoal {
-  title: string;
-  description: string;
-  completeUntil: Date;
-}
+//! Partial
+// interface CourseGoal {
+//   title: string;
+//   description: string;
+//   completeUntil: Date;
+// }
 
-function createCourseGoal(
-  title: string,
-  description: string,
-  completeUntil: Date
-) {
-  const returnObject: Partial<CourseGoal> = {}; //! "Partial" makes properties optional
-  returnObject.title = title;
-  returnObject.description = description;
-  returnObject.completeUntil = completeUntil;
-  return returnObject;
-}
+// function createCourseGoal(
+//   title: string,
+//   description: string,
+//   completeUntil: Date
+// ) {
+//   const returnObject: Partial<CourseGoal> = {}; //! "Partial" makes properties optional
+//   returnObject.title = title;
+//   returnObject.description = description;
+//   returnObject.completeUntil = completeUntil;
+//   return returnObject;
+// }
 
-console.log(createCourseGoal("react", "this is react course", new Date()));
+// console.log(createCourseGoal("react", "this is react course", new Date()));
+
+//! Readonly
+let myArray: Readonly<string[]>;
+myArray = ['Mahdi', 'Ali'];
+
+myArray = ['hey', 'bay', 'rey'];
+
+// myArray.push('say'); //! It Cannot do this because of "Readonly"
