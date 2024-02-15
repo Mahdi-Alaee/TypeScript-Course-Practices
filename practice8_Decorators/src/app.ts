@@ -1,11 +1,13 @@
 //* Decorator Class *//
 
-function Logger(con: Function) {
-  console.log("logging ...");
-  console.log(con);
+function Logger(logtext: string) {
+    return (constructor: Function) => {
+        console.log(logtext);
+        console.log(constructor);
+    }
 }
 
-@Logger
+@Logger('Person Class - Decorator')
 class Person {
   name: string;
 
