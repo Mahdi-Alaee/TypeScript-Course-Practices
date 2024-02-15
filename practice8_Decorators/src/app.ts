@@ -50,15 +50,53 @@
 
 //* Property Decorators *//
 
-function Log(targetClass: any, propertyName: string) {
-  console.log("Property Decorator ...");
+//! the Decoration of class properties
+function Log(targetClass: any, propertyName: string | Symbol) {
+  console.log("Property Decorator. . . .");
   console.log(targetClass, propertyName);
+}
+
+//! the Decoration of class accessors
+function Log2(
+  targetClass: any,
+  accessorName: string | Symbol,
+  descriptor: PropertyDescriptor
+) {
+  console.log("accessors Decorator. . . .");
+  console.log(targetClass);
+  console.log(accessorName);
+  console.log(descriptor);
+}
+
+//! the Decoration of class methods
+function Log3(
+  targetClass: any,
+  methodName: string | Symbol,
+  descriptor: PropertyDescriptor
+) {
+  console.log("method Decorator. . . .");
+  console.log(targetClass);
+  console.log(methodName);
+  console.log(descriptor);
+}
+
+//! the Decoration of class methods properties
+function Log4(
+  targetClass: any,
+  methodName: string | Symbol,
+  propertyPosition: number
+) {
+  console.log("method Property Decorator. . . .");
+  console.log(targetClass);
+  console.log(methodName);
+  console.log(propertyPosition);
 }
 
 class Product {
   @Log
   title: string;
 
+  @Log2
   set price(price: number) {
     if (price > 0) this._price = price;
   }
@@ -67,7 +105,8 @@ class Product {
     this.title = title;
   }
 
-  getPriceWithTax(tax: number) {
+  @Log3
+  getPriceWithTax(@Log4 tax: number) {
     return this._price + tax;
   }
 
