@@ -1,36 +1,38 @@
 //* Decorator Class *//
 
 function Logger(logtext: string) {
-  return (constructor: Function) => {
+  return (_: Function) => {
     console.log(logtext);
-    console.log(constructor);
   };
 }
 
 //! WithTemplate 1
-// function WithTemplate(hookId: string, template: string) {
-//   const hookElem = document.getElementById(hookId);
-
-//   return (_: any) => {
-//     if (hookElem) {
-//       hookElem.innerHTML = template;
-//     }
-//   };
-// }
-
-//! WithTemplate 2
 function WithTemplate(hookId: string, template: string) {
   const hookElem = document.getElementById(hookId);
 
-  return (constructor: any) => {
+  return (_: any) => {
+    console.log('WithTemplate');
+    
     if (hookElem) {
-      const instance = new constructor();
-      hookElem.innerHTML = `<h1>${instance.name}</h1>`;
+      hookElem.innerHTML = template;
     }
   };
 }
 
-// @Logger('Person Class - Decorator')
+//! WithTemplate 2
+// function WithTemplate(hookId: string, template: string) {
+//   const hookElem = document.getElementById(hookId);
+
+//   return (constructor: any) => {
+    
+//     if (hookElem) {
+//       const instance = new constructor();
+//       hookElem.innerHTML = `<h1>${instance.name}</h1>`;
+//     }
+//   };
+// }
+
+@Logger('Person Class - Decorator')
 @WithTemplate(
   "app",
   "<h1 style='color: white; background-color: black'>Hello! I'm Person Class WithTemplate Decorator</h1>"
