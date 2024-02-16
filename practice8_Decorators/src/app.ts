@@ -148,42 +148,76 @@
 // const p1 = new Person("mahdi");
 
 // //! Example 2
-function ChangeCase(changeTo: "LOWER" | "UPPER") {
-  return function (
-    target: any,
-    methodName: string | Symbol,
-    descriptor: TypedPropertyDescriptor<(phrase: string) => void>
-  ) {
-    console.log(target, methodName, descriptor);
+// function ChangeCase(changeTo: "LOWER" | "UPPER") {
+//   return function (
+//     target: any,
+//     methodName: string | Symbol,
+//     descriptor: TypedPropertyDescriptor<(phrase: string) => void>
+//   ) {
+//     console.log(target, methodName, descriptor);
 
-    const originalMethod = descriptor.value;
+//     const originalMethod = descriptor.value;
 
-    if (changeTo === "LOWER") {
-      descriptor.value = function (value: string) {
-        // Use 'this' inside a regular function
-        originalMethod!.call(this, value.toLowerCase());
-      };
-    } else if (changeTo === "UPPER") {
-      descriptor.value = function (value: string) {
-        // Use 'this' inside a regular function
-        originalMethod!.call(this, value.toUpperCase());
-      };
-    }
+//     if (changeTo === "LOWER") {
+//       descriptor.value = function (value: string) {
+//         // Use 'this' inside a regular function
+//         originalMethod!.call(this, value.toLowerCase());
+//       };
+//     } else if (changeTo === "UPPER") {
+//       descriptor.value = function (value: string) {
+//         // Use 'this' inside a regular function
+//         originalMethod!.call(this, value.toUpperCase());
+//       };
+//     }
+//   };
+// }
+
+// class Person {
+//   name: string;
+
+//   constructor(name: string) {
+//     this.name = name;
+//   }
+
+//   @ChangeCase("UPPER")
+//   say(phrase: string) {
+//     console.log(`${this.name} is Says that ${phrase}`);
+//   }
+// }
+
+// const p1 = new Person('mahdi');
+// p1.say('Hello Dumb!');
+
+//! Example 3
+function AutoBind(
+  target: any,
+  methodName: string,
+  descriptor: TypedPropertyDescriptor<() => void>
+) {
+  console.log(target, methodName, descriptor);
+
+  const originalMethod = descriptor.value;
+  
+  return {
+    configurable: true,
+    enumerable: false,
+    get() {
+      const boundFn = originalMethod.bind(this);
+      return boundFn;
+    },
   };
 }
 
-class Person {
-  name: string;
+class Printer {
+  private message = "This Works!!!";
 
-  constructor(name: string) {
-    this.name = name;
-  }
-
-  @ChangeCase("UPPER")
-  say(phrase: string) {
-    console.log(`${this.name} is Says that ${phrase}`);
+  @AutoBind
+  showMessage() {
+    console.log(this.message);
   }
 }
 
-const p1 = new Person('mahdi');
-p1.say('Hello Dumb!');
+const p = new Printer();
+
+const btn = document.querySelector("button")!;
+btn.addEventListener("click", p.showMessage);
