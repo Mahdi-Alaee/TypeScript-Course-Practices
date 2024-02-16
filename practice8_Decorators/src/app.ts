@@ -118,34 +118,72 @@
 //* More Complex Examples *//
 
 //! Example 1
-function WithTemplate(hookId: string, templateCreator: (name: string) => string) {
-  return function <T extends { new (...args: any[]): {} }>(originalConstructor: T) {
-    return class extends originalConstructor {
-      constructor(...args: any[]) {
-        super(...args);
-        const name = args[0]; // Assuming the name is the first argument
-        const hookElem = document.getElementById(hookId);
-        if (hookElem) {
-          hookElem.insertAdjacentHTML("beforeend", templateCreator(name));
-        }
-      }
-    } as T; // Cast back to the original type
+// function WithTemplate(
+//   hookId: string,
+//   templateCreator: (name: string) => string
+// ) {
+//   return function <T extends { new (...args: any[]): {} }>(
+//     originalConstructor: T
+//   ) {
+//     return class extends originalConstructor {
+//       constructor(...args: any[]) {
+//         super(...args);
+//         const name = args[0]; // Assuming the name is the first argument
+//         const hookElem = document.getElementById(hookId);
+//         if (hookElem) {
+//           hookElem.insertAdjacentHTML("beforeend", templateCreator(name));
+//         }
+//       }
+//     } as T; // Cast back to the original type
+//   };
+// }
+
+// @WithTemplate("app", (name: string) => `this is ${name} instance`)
+// class Person {
+//   constructor(public name: string) {
+//     console.log(`${name} is instantiated`);
+//   }
+// }
+
+// const p1 = new Person("mahdi");
+
+// //! Example 2
+function ChangeCase(changeTo: "LOWER" | "UPPER") {
+  return function (
+    target: any,
+    methodName: string | Symbol,
+    descriptor: TypedPropertyDescriptor<(phrase: string) => void>
+  ) {
+    console.log(target, methodName, descriptor);
+
+    const originalMethod = descriptor.value;
+
+    if (changeTo === "LOWER") {
+      descriptor.value = function (value: string) {
+        // Use 'this' inside a regular function
+        originalMethod!.call(this, value.toLowerCase());
+      };
+    } else if (changeTo === "UPPER") {
+      descriptor.value = function (value: string) {
+        // Use 'this' inside a regular function
+        originalMethod!.call(this, value.toUpperCase());
+      };
+    }
   };
 }
 
-@WithTemplate("app", (name: string) => `this is ${name} instance`)
 class Person {
-  constructor(public name: string) {
-    console.log(`${name} is instantiated`);
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  @ChangeCase("UPPER")
+  say(phrase: string) {
+    console.log(`${this.name} is Says that ${phrase}`);
   }
 }
 
 const p1 = new Person('mahdi');
-
-// //! Example 2
-// class Person{
-//   name: string;
-//   constructor(name) {
-//     this.name
-//   }
-// }
+p1.say('Hello Dumb!');
