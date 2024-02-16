@@ -51,66 +51,101 @@
 //* Property Decorators *//
 
 //! the Decoration of class properties
-function Log(targetClass: any, propertyName: string | Symbol) {
-  console.log("Property Decorator. . . .");
-  console.log(targetClass, propertyName);
-}
+// function Log(targetClass: any, propertyName: string | Symbol) {
+//   console.log("Property Decorator. . . .");
+//   console.log(targetClass, propertyName);
+// }
 
 //! the Decoration of class accessors
-function Log2(
-  targetClass: any,
-  accessorName: string | Symbol,
-  descriptor: PropertyDescriptor
-) {
-  console.log("accessors Decorator. . . .");
-  console.log(targetClass);
-  console.log(accessorName);
-  console.log(descriptor);
-}
+// function Log2(
+//   targetClass: any,
+//   accessorName: string | Symbol,
+//   descriptor: PropertyDescriptor
+// ) {
+//   console.log("accessors Decorator. . . .");
+//   console.log(targetClass);
+//   console.log(accessorName);
+//   console.log(descriptor);
+// }
 
 //! the Decoration of class methods
-function Log3(
-  targetClass: any,
-  methodName: string | Symbol,
-  descriptor: PropertyDescriptor
-) {
-  console.log("method Decorator. . . .");
-  console.log(targetClass);
-  console.log(methodName);
-  console.log(descriptor);
-}
+// function Log3(
+//   targetClass: any,
+//   methodName: string | Symbol,
+//   descriptor: PropertyDescriptor
+// ) {
+//   console.log("method Decorator. . . .");
+//   console.log(targetClass);
+//   console.log(methodName);
+//   console.log(descriptor);
+// }
 
 //! the Decoration of class methods properties
-function Log4(
-  targetClass: any,
-  methodName: string | Symbol,
-  propertyPosition: number
-) {
-  console.log("method Property Decorator. . . .");
-  console.log(targetClass);
-  console.log(methodName);
-  console.log(propertyPosition);
+// function Log4(
+//   targetClass: any,
+//   methodName: string | Symbol,
+//   propertyPosition: number
+// ) {
+//   console.log("method Property Decorator. . . .");
+//   console.log(targetClass);
+//   console.log(methodName);
+//   console.log(propertyPosition);
+// }
+
+// class Product {
+//   @Log
+//   title: string;
+
+//   @Log2
+//   set price(price: number) {
+//     if (price > 0) this._price = price;
+//   }
+
+//   constructor(title: string, private _price: number) {
+//     this.title = title;
+//   }
+
+//   @Log3
+//   getPriceWithTax(@Log4 tax: number) {
+//     return this._price + tax;
+//   }
+
+//   setPrice(newPrice: number) {
+//     this.price = newPrice;
+//   }
+// }
+
+//* More Complex Examples *//
+
+//! Example 1
+function WithTemplate(hookId: string, templateCreator: (name: string) => string) {
+  return function <T extends { new (...args: any[]): {} }>(originalConstructor: T) {
+    return class extends originalConstructor {
+      constructor(...args: any[]) {
+        super(...args);
+        const name = args[0]; // Assuming the name is the first argument
+        const hookElem = document.getElementById(hookId);
+        if (hookElem) {
+          hookElem.insertAdjacentHTML("beforeend", templateCreator(name));
+        }
+      }
+    } as T; // Cast back to the original type
+  };
 }
 
-class Product {
-  @Log
-  title: string;
-
-  @Log2
-  set price(price: number) {
-    if (price > 0) this._price = price;
-  }
-
-  constructor(title: string, private _price: number) {
-    this.title = title;
-  }
-
-  @Log3
-  getPriceWithTax(@Log4 tax: number) {
-    return this._price + tax;
-  }
-
-  setPrice(newPrice: number) {
-    this.price = newPrice;
+@WithTemplate("app", (name: string) => `this is ${name} instance`)
+class Person {
+  constructor(public name: string) {
+    console.log(`${name} is instantiated`);
   }
 }
+
+const p1 = new Person('mahdi');
+
+// //! Example 2
+// class Person{
+//   name: string;
+//   constructor(name) {
+//     this.name
+//   }
+// }
