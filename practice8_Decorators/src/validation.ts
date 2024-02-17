@@ -1,3 +1,9 @@
+function Required() {}
+
+function PrositiveNumber() {}
+
+function Validate(obj: object) {}
+
 class Course {
   title: string;
   price: number;
@@ -8,19 +14,19 @@ class Course {
   }
 }
 
-function submitHandler(e: Event){
-    e.preventDefault();
+function submitHandler(e: Event) {
+  e.preventDefault();
 
-    const titleElem = document.getElementById('title') as HTMLInputElement;
-    const priceElem = document.getElementById('price') as HTMLInputElement;
+  const titleElem = document.getElementById("title") as HTMLInputElement;
+  const priceElem = document.getElementById("price") as HTMLInputElement;
 
-    const title = titleElem.value;
-    const price = +priceElem.value;
+  const title = titleElem.value;
+  const price = +priceElem.value;
 
-    const newCourse = new Course(title, price);
+  const newCourse = new Course(title, price);
 
-    console.log(newCourse);
+  console.log(newCourse);
 }
 
 //! events
-document.querySelector('form')!.addEventListener('submit', submitHandler);
+document.querySelector("form")!.addEventListener("submit", submitHandler);
