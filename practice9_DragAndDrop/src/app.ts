@@ -1,14 +1,13 @@
+
+//* AutoBind Decorator *//
 function AutoBind(
   _target: any,
   _methodName: string | Symbol,
   descriptor: TypedPropertyDescriptor<any>
 ) {
-
   const originalMethod = descriptor.value as Function;
 
   return {
-    // enumerable: false,
-    // configurable: true,
     get() {
       const boundFn = originalMethod?.bind(this);
       return boundFn;
@@ -16,6 +15,7 @@ function AutoBind(
   };
 }
 
+//* project input *//
 class ProjectInput {
   templateElem: HTMLTemplateElement;
   appElem: HTMLDivElement;
@@ -25,6 +25,7 @@ class ProjectInput {
   descriptionInput: HTMLInputElement;
   peopleInput: HTMLInputElement;
   submitButton: HTMLButtonElement;
+
   constructor() {
     //! load Form to the DOM
     this.templateElem = document.getElementById(
@@ -50,12 +51,45 @@ class ProjectInput {
     this.configure();
   }
 
+  validate<T extends { value: string }>(param: T) {
+    const { value } = param;
+
+    switch (param) {
+    }
+  }
+
+  clearInputs() {
+    this.titleInput.value = "";
+    this.descriptionInput.value = "";
+    this.peopleInput.value = "";
+  }
+
+  gatherInputValues(): [string, string, number] | void {
+    const EnteredTitle = this.titleInput.value;
+    const EnteredDescription = this.descriptionInput.value;
+    const EnteredPeople = +this.peopleInput.value;
+
+    if (EnteredTitle && EnteredDescription && EnteredPeople)
+      return [EnteredTitle, EnteredDescription, EnteredPeople];
+
+    alert("you must fill the inputs");
+  }
+
   @AutoBind
   private submitHandler(e: Event) {
     e.preventDefault();
-    console.log(this.titleInput.value);
-    console.log(this.descriptionInput.value);
-    console.log(this.peopleInput.value);
+
+    const gatheredInputs = this.gatherInputValues();
+
+    if (Array.isArray(gatheredInputs)) {
+      const [title, description, people] = this.gatherInputValues() as [
+        string,
+        string,
+        number
+      ];
+      this.clearInputs();
+      console.log(title, description, people);
+    }
   }
 
   private configure() {
