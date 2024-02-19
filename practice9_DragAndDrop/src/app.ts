@@ -56,10 +56,40 @@ function AutoBind(
   };
 }
 
-//* project input *//
+//* Project List Class *//
+class ProjectList{
+  templateElem: HTMLTemplateElement;
+  rootElem: HTMLDivElement;
+  sectionElem: HTMLElement;
+
+  constructor(private type: 'active' | 'finished') {
+    this.templateElem = document.getElementById('project-list') as HTMLTemplateElement;
+    this.rootElem = document.getElementById('app') as HTMLDivElement;
+    
+    const importedNode = document.importNode(this.templateElem.content, true);
+    
+    this.sectionElem = importedNode.firstElementChild as HTMLElement;
+    this.sectionElem.id = `${type}-projects`
+    console.log(this.sectionElem);
+    
+    this.attach();
+    this.generateContent();
+  }
+
+  generateContent(){
+    this.sectionElem.querySelector('header > h2')!.innerHTML = `${this.type.toUpperCase()} PROJECTS`;
+    this.sectionElem.querySelector('ul')!.id = `${this.type}-projects-list`;
+  }
+
+  attach(){
+    this.rootElem.insertAdjacentElement('beforeend', this.sectionElem);
+  }
+}
+
+//* Project Input Class *//
 class ProjectInput {
   templateElem: HTMLTemplateElement;
-  appElem: HTMLDivElement;
+  rootElem: HTMLDivElement;
   formElem: HTMLFormElement;
 
   titleInput: HTMLInputElement;
@@ -72,7 +102,7 @@ class ProjectInput {
     this.templateElem = document.getElementById(
       "project-input"
     ) as HTMLTemplateElement;
-    this.appElem = document.getElementById("app") as HTMLDivElement;
+    this.rootElem = document.getElementById("app") as HTMLDivElement;
 
     const importedNode = document.importNode(this.templateElem.content, true);
 
@@ -145,8 +175,10 @@ class ProjectInput {
   }
 
   private attach() {
-    this.appElem.insertAdjacentElement("afterbegin", this.formElem);
+    this.rootElem.insertAdjacentElement("afterbegin", this.formElem);
   }
 }
 
 const prjInput = new ProjectInput();
+const activePrjList = new ProjectList('active');
+const finishedPrjList = new ProjectList('finished');
