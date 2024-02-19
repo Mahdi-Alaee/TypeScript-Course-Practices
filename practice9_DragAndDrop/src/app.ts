@@ -1,3 +1,44 @@
+//* Validation *//
+interface ValidationRule {
+  value: string | number;
+  required?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  min?: number;
+  max?: number;
+}
+
+function validate(ValidationRule: ValidationRule): boolean {
+  let isValid = true;
+
+  if (ValidationRule.required != null) {
+    isValid = isValid && ValidationRule.value.toString().length > 0;
+  }
+  if (
+    ValidationRule.maxLength != null &&
+    typeof ValidationRule.value === "string"
+  ) {
+    isValid =
+      isValid &&
+      ValidationRule.value.toString().length <= ValidationRule.maxLength;
+  }
+  if (
+    ValidationRule.minLength != null &&
+    typeof ValidationRule.value === "string"
+  ) {
+    isValid =
+      isValid &&
+      ValidationRule.value.toString().length >= ValidationRule.minLength;
+  }
+  if (ValidationRule.max != null && typeof ValidationRule.value === "number") {
+    isValid = isValid && ValidationRule.value <= ValidationRule.max;
+  }
+  if (ValidationRule.min != null && typeof ValidationRule.value === "number") {
+    isValid = isValid && ValidationRule.value >= ValidationRule.min;
+  }
+
+  return isValid;
+}
 
 //* AutoBind Decorator *//
 function AutoBind(
@@ -51,13 +92,6 @@ class ProjectInput {
     this.configure();
   }
 
-  validate<T extends { value: string }>(param: T) {
-    const { value } = param;
-
-    switch (param) {
-    }
-  }
-
   clearInputs() {
     this.titleInput.value = "";
     this.descriptionInput.value = "";
@@ -65,14 +99,28 @@ class ProjectInput {
   }
 
   gatherInputValues(): [string, string, number] | void {
-    const EnteredTitle = this.titleInput.value;
-    const EnteredDescription = this.descriptionInput.value;
-    const EnteredPeople = +this.peopleInput.value;
+    const enteredTitle = this.titleInput.value;
+    const enteredDescription = this.descriptionInput.value;
+    const enteredPeople = +this.peopleInput.value;
 
-    if (EnteredTitle && EnteredDescription && EnteredPeople)
-      return [EnteredTitle, EnteredDescription, EnteredPeople];
+    if (
+      validate({
+        value: enteredTitle,
+        minLength: 3,
+        maxLength: 20,
+        required: true,
+      }) &&
+      validate({
+        value: enteredDescription,
+        minLength: 10,
+        maxLength: 50,
+        required: true,
+      }) &&
+      validate({ value: enteredPeople, min: 1, max: 5, required: true })
+    )
+      return [enteredTitle, enteredDescription, enteredPeople];
 
-    alert("you must fill the inputs");
+    alert("your entered data isn't Valid");
   }
 
   @AutoBind
