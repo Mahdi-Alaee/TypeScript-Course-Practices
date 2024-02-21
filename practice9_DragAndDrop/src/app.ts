@@ -1,5 +1,3 @@
-
-
 //* project interface *//
 enum ProjectStatus {
   Active,
@@ -111,12 +109,17 @@ class ProjectState {
 const prjState = ProjectState.getInstence();
 
 //* renderable class *//
-class RenderableClass<T extends HTMLElement,U extends HTMLElement> {
+class RenderableClass<T extends HTMLElement, U extends HTMLElement> {
   templateElem: HTMLTemplateElement;
   rootElem: T;
   element: U;
 
-  constructor(templateElemId: string, rootElemId: string, elementId?: string) {
+  constructor(
+    templateElemId: string,
+    rootElemId: string,
+    private insertPosition: InsertPosition,
+    elementId?: string
+  ) {
     this.templateElem = document.getElementById(
       templateElemId
     ) as HTMLTemplateElement;
@@ -130,7 +133,22 @@ class RenderableClass<T extends HTMLElement,U extends HTMLElement> {
   }
 
   private attach() {
-    this.rootElem.insertAdjacentElement("beforeend", this.element);
+    this.rootElem.insertAdjacentElement(this.insertPosition, this.element);
+  }
+}
+
+//* Project Item *//
+class ProjectItem extends RenderableClass<HTMLUListElement, HTMLLIElement> {
+  constructor(rootElemId: string, private project: Project) {
+    super("single-project", rootElemId, "beforeend", project.id);
+
+    this.generateContent();
+  }
+
+  generateContent(){
+    this.element.querySelector('h2')!.innerHTML = this.project.title;
+    this.element.querySelector('h3')!.innerHTML = this.project.people.toString();
+    this.element.querySelector('p')!.innerHTML = this.project.description;
   }
 }
 
@@ -139,7 +157,7 @@ class ProjectList extends RenderableClass<HTMLDivElement, HTMLElement> {
   assignedProjects: Project[] = [];
 
   constructor(private type: "active" | "finished") {
-    super("project-list", "app", `${type}-projects`);
+    super("project-list", "app", "beforeend", `${type}-projects`);
 
     this.generateContent();
     prjState.addListener((projects: any[]) => {
@@ -162,9 +180,7 @@ class ProjectList extends RenderableClass<HTMLDivElement, HTMLElement> {
     ) as HTMLUListElement;
     ulElem.innerHTML = "";
     this.assignedProjects.forEach((project) => {
-      const newLi = document.createElement("li");
-      newLi.innerHTML = project.title;
-      ulElem.appendChild(newLi);
+      new ProjectItem(ulElem.id, project)
     });
   }
 
@@ -177,14 +193,14 @@ class ProjectList extends RenderableClass<HTMLDivElement, HTMLElement> {
 }
 
 //* Project Input Class *//
-class ProjectInput extends RenderableClass<HTMLDivElement,HTMLFormElement> {
+class ProjectInput extends RenderableClass<HTMLDivElement, HTMLFormElement> {
   titleInput: HTMLInputElement;
   descriptionInput: HTMLInputElement;
   peopleInput: HTMLInputElement;
   submitButton: HTMLButtonElement;
 
   constructor() {
-    super("project-input", "app", "user-input");
+    super("project-input", "app", "afterbegin", "user-input");
 
     //! get Elements
     this.titleInput = document.getElementById("title") as HTMLInputElement;
