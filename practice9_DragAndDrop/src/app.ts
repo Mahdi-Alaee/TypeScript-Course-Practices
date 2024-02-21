@@ -145,10 +145,15 @@ class ProjectItem extends RenderableClass<HTMLUListElement, HTMLLIElement> {
     this.generateContent();
   }
 
-  generateContent(){
-    this.element.querySelector('h2')!.innerHTML = this.project.title;
-    this.element.querySelector('h3')!.innerHTML = this.project.people.toString();
-    this.element.querySelector('p')!.innerHTML = this.project.description;
+  get peopleText() {
+    const peopleCount = this.project.people;
+    return `${peopleCount} ${peopleCount > 1 ? "persons" : "person"} assigned`;
+  }
+
+  generateContent() {
+    this.element.querySelector("h2")!.innerHTML = this.project.title;
+    this.element.querySelector("h3")!.innerHTML = this.peopleText;
+    this.element.querySelector("p")!.innerHTML = this.project.description;
   }
 }
 
@@ -180,7 +185,7 @@ class ProjectList extends RenderableClass<HTMLDivElement, HTMLElement> {
     ) as HTMLUListElement;
     ulElem.innerHTML = "";
     this.assignedProjects.forEach((project) => {
-      new ProjectItem(ulElem.id, project)
+      new ProjectItem(ulElem.id, project);
     });
   }
 
