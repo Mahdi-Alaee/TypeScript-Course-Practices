@@ -96,7 +96,7 @@ class ProjectState {
       title,
       description,
       people,
-      status: 0
+      status: 0,
     };
 
     this.projects.push(newProject);
@@ -129,7 +129,15 @@ class ProjectList {
     this.attach();
     this.generateContent();
     prjState.addListener((projects: any[]) => {
-      this.assignedProjects = projects;
+      if (this.type === "active")
+        this.assignedProjects = projects.filter(
+          (project) => project.status === ProjectStatus.Active
+        );
+      else
+        this.assignedProjects = projects.filter(
+          (project) => project.status === ProjectStatus.Finished
+        );
+
       this.renderProjects();
     });
   }
