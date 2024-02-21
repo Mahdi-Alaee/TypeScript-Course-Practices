@@ -1,10 +1,17 @@
 //* project interface *//
+enum ProjectStatus {
+  Active,
+  Finished,
+}
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  people: number;
+class Project {
+  constructor(
+    public id: string,
+    public title: string,
+    public description: string,
+    public people: number,
+    public status: ProjectStatus
+  ) {}
 }
 
 //* Validation *//
@@ -89,6 +96,7 @@ class ProjectState {
       title,
       description,
       people,
+      status: 0
     };
 
     this.projects.push(newProject);
