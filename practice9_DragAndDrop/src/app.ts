@@ -1,3 +1,15 @@
+//* Drag and Drop *//
+interface Draggable {
+  dragStartHandler: (event: DragEvent) => void;
+  dragEndHandler: (event: DragEvent) => void;
+}
+
+interface DropTarget {
+  dragOverHandler: (event: DragEvent) => void;
+  dropHandler: (event: DragEvent) => void;
+  dragLeaveHandler: (event: DragEvent) => void;
+}
+
 //* project interface *//
 enum ProjectStatus {
   Active,
@@ -138,16 +150,35 @@ class RenderableClass<T extends HTMLElement, U extends HTMLElement> {
 }
 
 //* Project Item *//
-class ProjectItem extends RenderableClass<HTMLUListElement, HTMLLIElement> {
+class ProjectItem
+  extends RenderableClass<HTMLUListElement, HTMLLIElement>
+  implements Draggable
+{
   constructor(rootElemId: string, private project: Project) {
     super("single-project", rootElemId, "beforeend", project.id);
 
+    this.configure();
     this.generateContent();
   }
 
   get peopleText() {
     const peopleCount = this.project.people;
     return `${peopleCount} ${peopleCount > 1 ? "persons" : "person"} assigned`;
+  }
+
+  @AutoBind
+  dragStartHandler(event: DragEvent) {
+    console.log("dragStart", event);
+  }
+
+  @AutoBind
+  dragEndHandler(event: DragEvent) {
+    console.log("dragEnd", event);
+  }
+
+  configure() {
+    this.element.addEventListener("dragstart", this.dragStartHandler);
+    this.element.addEventListener("dragend", this.dragEndHandler);
   }
 
   generateContent() {
@@ -158,7 +189,10 @@ class ProjectItem extends RenderableClass<HTMLUListElement, HTMLLIElement> {
 }
 
 //* Project List Class *//
-class ProjectList extends RenderableClass<HTMLDivElement, HTMLElement> {
+class ProjectList
+  extends RenderableClass<HTMLDivElement, HTMLElement>
+  implements DropTarget
+{
   assignedProjects: Project[] = [];
 
   constructor(private type: "active" | "finished") {
@@ -177,6 +211,26 @@ class ProjectList extends RenderableClass<HTMLDivElement, HTMLElement> {
 
       this.renderProjects();
     });
+
+    this.configure();
+  }
+
+  dragOverHandler(event: DragEvent) {
+    console.log("dragStart", event);
+  }
+
+  dropHandler(event: DragEvent) {
+    console.log("drop", event);
+  }
+
+  dragLeaveHandler(event: DragEvent) {
+    console.log("dragLeave", event);
+  }
+
+  configure() {
+    this.element.addEventListener("dragover", this.dragOverHandler);
+    this.element.addEventListener("drop", this.dropHandler);
+    this.element.addEventListener("dragleave", this.dragLeaveHandler);
   }
 
   renderProjects() {
