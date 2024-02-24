@@ -1,3 +1,7 @@
+/// <reference path="../components/renderable.ts" />
+/// <reference path="../decorators/autoBind.ts" />
+/// <reference path="../models/Project.ts" />
+
 namespace App {
   //* Project Item *//
   export class ProjectItem

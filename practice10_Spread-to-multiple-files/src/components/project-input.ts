@@ -1,3 +1,7 @@
+/// <reference path="../components/renderable.ts" />
+/// <reference path="../utils/validation.ts" />
+/// <reference path="../decorators/autoBind.ts" />
+
 namespace App {
   //* Project Input Class *//
   export class ProjectInput extends RenderableClass<
