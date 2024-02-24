@@ -1,8 +1,8 @@
-/// <reference path="../components/renderable.ts" />
-/// <reference path="../utils/validation.ts" />
-/// <reference path="../decorators/autoBind.ts" />
+import { RenderableClass } from "./renderable.js";
+import { AutoBind } from "../decorators/autoBind.js";
+import { validate} from "../utils/validation.js";
+import { prjState } from "../states/projects-state.js";
 
-namespace App {
   //* Project Input Class *//
   export class ProjectInput extends RenderableClass<
     HTMLDivElement,
@@ -81,4 +81,4 @@ namespace App {
       this.submitButton.addEventListener("click", this.submitHandler);
     }
   }
-}
+
