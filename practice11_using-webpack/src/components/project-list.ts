@@ -1,10 +1,10 @@
-import { RenderableClass } from "./renderable.js";
-import { DropTarget } from "../models/drag-drop-interface.js";
-import { Project } from "../models/Project.js";
-import { prjState } from "../states/projects-state.js";
-import { AutoBind } from "../decorators/autoBind.js";
-import { ProjectStatus } from "../models/Project.js";
-import { ProjectItem } from "./project-item.js";
+import { RenderableClass } from "./renderable";
+import { DropTarget } from "../models/drag-drop-interface";
+import { Project } from "../models/Project";
+import { prjState } from "../states/projects-state";
+import { AutoBind } from "../decorators/autoBind";
+import { ProjectStatus } from "../models/Project";
+import { ProjectItem } from "./project-item";
 
 //* Project List Class *//
 export class ProjectList

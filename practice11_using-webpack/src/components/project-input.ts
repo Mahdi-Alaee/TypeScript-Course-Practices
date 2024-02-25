@@ -1,7 +1,7 @@
-import { RenderableClass } from "./renderable.js";
-import { AutoBind } from "../decorators/autoBind.js";
-import { validate} from "../utils/validation.js";
-import { prjState } from "../states/projects-state.js";
+import { RenderableClass } from "./renderable";
+import { AutoBind } from "../decorators/autoBind";
+import { validate} from "../utils/validation";
+import { prjState } from "../states/projects-state";
 
   //* Project Input Class *//
   export class ProjectInput extends RenderableClass<

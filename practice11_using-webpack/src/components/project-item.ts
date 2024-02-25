@@ -1,7 +1,7 @@
-import { RenderableClass } from "./renderable.js";
-import { AutoBind } from "../decorators/autoBind.js";
-import { Draggable } from "../models/drag-drop-interface.js";
-import { Project } from "../models/Project.js";
+import { RenderableClass } from "./renderable";
+import { AutoBind } from "../decorators/autoBind";
+import { Draggable } from "../models/drag-drop-interface";
+import { Project } from "../models/Project";
 
 //* Project Item *//
 export class ProjectItem
