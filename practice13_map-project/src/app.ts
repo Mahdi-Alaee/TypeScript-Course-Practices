@@ -6,7 +6,10 @@ function searchAddressHandler(e: Event) {
 
   const textBox = document.getElementById('txtAddress') as HTMLInputElement;
 
-  console.log(textBox.value);
+  const enteredAddress = textBox.value;
+
+  console.log(enteredAddress);
+  
 }
 
 //! events
