@@ -1,6 +1,6 @@
 import React from "react";
 import { Todo } from "../models";
-
+import "./TodoList.css";
 interface propsType {
   items: Todo[];
   onDelete: (id: string) => void;
