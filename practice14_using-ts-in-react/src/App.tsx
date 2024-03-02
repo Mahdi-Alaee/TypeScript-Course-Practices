@@ -9,6 +9,7 @@ const App: React.FC = () => {
     { id: crypto.randomUUID(), title: "todo 1" },
   ]);
 
+  
   const addTodo = (title: string) =>
     setTodos((prev: Todo[]) => [...prev, { id: crypto.randomUUID(), title }]);
 
