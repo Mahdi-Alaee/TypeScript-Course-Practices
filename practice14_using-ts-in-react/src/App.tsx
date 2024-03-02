@@ -9,14 +9,17 @@ const App: React.FC = () => {
     { id: crypto.randomUUID(), title: "todo 1" },
   ]);
 
-  
   const addTodo = (title: string) =>
     setTodos((prev: Todo[]) => [...prev, { id: crypto.randomUUID(), title }]);
+
+  const deleteTodo = (id: string) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
 
   return (
     <div className="App">
       <NewTodo addTodo={addTodo} />
-      <TodoList items={todos} />
+      <TodoList items={todos} onDelete={deleteTodo} />
     </div>
   );
 };

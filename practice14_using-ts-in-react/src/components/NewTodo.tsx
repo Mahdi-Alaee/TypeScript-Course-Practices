@@ -15,7 +15,7 @@ const NewTodo: React.FC<propsType> = (props) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className="form-control">
       <div>
         <label htmlFor="todo-title">To do title</label>
         <input type="text" id="todo-title" ref={titleElem} />

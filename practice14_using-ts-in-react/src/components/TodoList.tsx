@@ -3,6 +3,7 @@ import { Todo } from "../models";
 
 interface propsType {
   items: Todo[];
+  onDelete: (id: string) => void;
 }
 
 //! component
@@ -10,7 +11,10 @@ const TodoList: React.FC<propsType> = (props) => {
   return (
     <ul>
       {props.items.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
+        <li key={todo.id}>
+          <span>{todo.title}</span>{" "}
+          <button onClick={() => props.onDelete(todo.id)}>delete</button>
+        </li>
       ))}
     </ul>
   );
