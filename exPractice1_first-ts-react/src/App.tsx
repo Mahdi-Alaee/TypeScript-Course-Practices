@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TodoList from "./components/TodoList/TodoList";
 import { TodoType } from "./types/Todo";
+import Form from "./components/Form/Form";
 
 // const App: React.FC = () => {
 // function App(): React.ReactElement {
@@ -32,6 +33,7 @@ const App: React.FunctionComponent = () => {
     <div id="app">
       <h1>react with TS 😍</h1>
       {todos?.length ? <TodoList todos={todos} /> : <h2>🙁</h2>}
+      <Form />
     </div>
   );
 };
