@@ -1,13 +1,17 @@
 import React from "react";
-import { TodoType } from "../TodoList";
+import { TodoType } from "../../../types/Todo";
 
-const Todo: React.FC<React.PropsWithChildren<TodoType>> = ({ isComplete, title, children }) => {
+const Todo: React.FC<React.PropsWithChildren<TodoType>> = ({
+  isComplete,
+  title,
+  children,
+}) => {
   const styles: React.CSSProperties = {
     backgroundColor: "#333",
     color: "#ccc",
     margin: "8px 0",
-    padding: '8px',
-    listStyle: 'none'
+    padding: "8px",
+    listStyle: "none",
   };
 
   return (

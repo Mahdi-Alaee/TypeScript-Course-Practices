@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import TodoList, { TodoType } from "./components/TodoList/TodoList";
+import TodoList from "./components/TodoList/TodoList";
+import { TodoType } from "./types/Todo";
 
 // const App: React.FC = () => {
 // function App(): React.ReactElement {
