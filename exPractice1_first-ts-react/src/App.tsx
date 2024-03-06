@@ -3,6 +3,8 @@ import TodoList from "./components/TodoList/TodoList";
 import { TodoType } from "./types/Todo";
 import Form from "./components/Form/Form";
 import Counter from "./components/Counter/Counter";
+import Theme from "./components/Theme/Theme";
+import { ThemeContextProvider } from "./context/ThemeContext";
 
 // const App: React.FC = () => {
 // function App(): React.ReactElement {
@@ -35,7 +37,10 @@ const App: React.FunctionComponent = () => {
       <h1>react with TS 😍</h1>
       {/* {todos?.length ? <TodoList todos={todos} /> : <h2>🙁</h2>} */}
       {/* <Form /> */}
-      <Counter />
+      {/* <Counter /> */}
+      <ThemeContextProvider>
+        <Theme />
+      </ThemeContextProvider>
     </div>
   );
 };
