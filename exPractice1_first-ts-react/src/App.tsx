@@ -5,6 +5,8 @@ import Form from "./components/Form/Form";
 import Counter from "./components/Counter/Counter";
 import Theme from "./components/Theme/Theme";
 import { ThemeContextProvider } from "./context/ThemeContext";
+import { AuthContextProvider } from "./context/AuthContext";
+import Header from "./components/Header/Header";
 
 // const App: React.FC = () => {
 // function App(): React.ReactElement {
@@ -38,9 +40,12 @@ const App: React.FunctionComponent = () => {
       {/* {todos?.length ? <TodoList todos={todos} /> : <h2>🙁</h2>} */}
       {/* <Form /> */}
       {/* <Counter /> */}
-      <ThemeContextProvider>
+      {/* <ThemeContextProvider>
         <Theme />
-      </ThemeContextProvider>
+      </ThemeContextProvider> */}
+      <AuthContextProvider>
+        <Header />
+      </AuthContextProvider>
     </div>
   );
 };
