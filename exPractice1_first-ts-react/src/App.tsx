@@ -48,10 +48,10 @@ const App: React.FunctionComponent = () => {
       {/* <AuthContextProvider>
         <Header />
       </AuthContextProvider> */}
-      {/* <Icon png>
+      <Icon png position="center-bottom">
         <p>Hello</p>
-      </Icon> */}
-      <Translate arg="res_en" />
+      </Icon>
+      {/* <Translate arg="res_en" /> */}
     </div>
   );
 };
