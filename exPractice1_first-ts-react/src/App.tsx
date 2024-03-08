@@ -7,6 +7,7 @@ import Theme from "./components/Theme/Theme";
 import { ThemeContextProvider } from "./context/ThemeContext";
 import { AuthContextProvider } from "./context/AuthContext";
 import Header from "./components/Header/Header";
+import Icon from "./components/Icon/Icon";
 
 // const App: React.FC = () => {
 // function App(): React.ReactElement {
@@ -43,9 +44,12 @@ const App: React.FunctionComponent = () => {
       {/* <ThemeContextProvider>
         <Theme />
       </ThemeContextProvider> */}
-      <AuthContextProvider>
+      {/* <AuthContextProvider>
         <Header />
-      </AuthContextProvider>
+      </AuthContextProvider> */}
+      <Icon png>
+        <p>Hello</p>
+      </Icon>
     </div>
   );
 };
