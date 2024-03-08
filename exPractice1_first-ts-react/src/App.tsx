@@ -8,6 +8,7 @@ import { ThemeContextProvider } from "./context/ThemeContext";
 import { AuthContextProvider } from "./context/AuthContext";
 import Header from "./components/Header/Header";
 import Icon from "./components/Icon/Icon";
+import Translate from "./components/Translate/Translate";
 
 // const App: React.FC = () => {
 // function App(): React.ReactElement {
@@ -47,9 +48,10 @@ const App: React.FunctionComponent = () => {
       {/* <AuthContextProvider>
         <Header />
       </AuthContextProvider> */}
-      <Icon png>
+      {/* <Icon png>
         <p>Hello</p>
-      </Icon>
+      </Icon> */}
+      <Translate arg="res_en" />
     </div>
   );
 };
