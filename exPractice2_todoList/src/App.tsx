@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
 import "./App.css";
@@ -9,8 +9,9 @@ function App() {
   const [title, setTitle] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
   const [swalConfigs, setSwalConfigs] = useState<SweetAlert2Props>({});
+  const inputElemRef = useRef<HTMLInputElement>(null);
 
-  const addTodo = (event: React.FormEvent<HTMLFormElement>) => {
+  const addTodo = (event: React.FormEvent<HTMLFormElement | undefined>) => {
     event.preventDefault();
 
     if (title.trim()) {
@@ -22,6 +23,7 @@ function App() {
 
       setTodos((prev) => {
         setTitle("");
+        inputElemRef.current?.focus();
 
         return [...prev, newTodo];
       });
@@ -49,6 +51,20 @@ function App() {
     });
   };
 
+  const completeTodoHandler = (todoId: string) => {
+    setTodos((prev) => {
+      const newTodos = prev.map((todo) => {
+        if (todo.id === todoId) {
+          todo.isComplete = !todo.isComplete;
+        }
+
+        return todo;
+      });
+
+      return newTodos;
+    });
+  };
+
   return (
     <div className="TodoWrapper">
       <h1>Todo List ❤️ </h1>
@@ -61,6 +77,7 @@ function App() {
           placeholder="What is the task today?"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          ref={inputElemRef}
         />
         <button type="submit" className="todo-btn">
           Add Task
@@ -69,7 +86,11 @@ function App() {
 
       {/* display todos */}
       {todos.map((todo) => (
-        <div className="Todo" key={todo.id}>
+        <div
+          className="Todo"
+          key={todo.id}
+          onClick={completeTodoHandler.bind(null, todo.id)}
+        >
           <p
             className={`${todo.isComplete ? "completed" : ""}`} // or completed className
           >
