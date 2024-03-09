@@ -1,40 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { SetStateAction, useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
 import "./App.css";
 import { Todo, sweetAlert2Result } from "./todo.types";
 import SweetAlert2, { SweetAlert2Props } from "react-sweetalert2";
+import AddTodo from "./components/AddTodo";
 
 function App() {
-  const [title, setTitle] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
   const [swalConfigs, setSwalConfigs] = useState<SweetAlert2Props>({});
-  const inputElemRef = useRef<HTMLInputElement>(null);
-
-  const addTodo = (event: React.FormEvent<HTMLFormElement | undefined>) => {
-    event.preventDefault();
-
-    if (title.trim()) {
-      const newTodo: Todo = {
-        id: crypto.randomUUID(),
-        title,
-        isComplete: false,
-      };
-
-      setTodos((prev) => {
-        setTitle("");
-        inputElemRef.current?.focus();
-
-        return [...prev, newTodo];
-      });
-    } else {
-      setSwalConfigs({
-        show: true,
-        text: "Enter Todo Infos correctly!",
-        icon: "info",
-      });
-    }
-  };
 
   const deleteHandler = (todoId: string) => {
     setSwalConfigs({
@@ -70,19 +44,7 @@ function App() {
       <h1>Todo List ❤️ </h1>
 
       {/* Add New Todo Form */}
-      <form className="TodoForm" onSubmit={addTodo}>
-        <input
-          type="text"
-          className="todo-input"
-          placeholder="What is the task today?"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          ref={inputElemRef}
-        />
-        <button type="submit" className="todo-btn">
-          Add Task
-        </button>
-      </form>
+      <AddTodo setTodos={setTodos} setSwalConfigs={setSwalConfigs} />
 
       {/* display todos */}
       {todos.map((todo) => (
