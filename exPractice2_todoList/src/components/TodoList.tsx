@@ -1,8 +1,8 @@
-import { FaTrash } from "react-icons/fa";
-import { Todo, sweetAlert2Result } from "../todo.types";
+import { TodoType, sweetAlert2Result } from "../todo.types";
+import Todo from "./Todo";
 
 interface TodoListProps {
-  todos: Todo[];
+  todos: TodoType[];
   setSwalConfigs: Function;
   setTodos: Function;
 }
@@ -14,7 +14,7 @@ function TodoList({ todos, setSwalConfigs, setTodos }: TodoListProps) {
       title: "Are you sure?",
       showDenyButton: true,
       onConfirm: (_: sweetAlert2Result) => {
-        setTodos((prev: Todo[]) => {
+        setTodos((prev: TodoType[]) => {
           const newTodos = prev.filter((todo) => todo.id !== todoId);
           return newTodos;
         });
@@ -24,7 +24,7 @@ function TodoList({ todos, setSwalConfigs, setTodos }: TodoListProps) {
   };
 
   const completeTodoHandler = (todoId: string) => {
-    setTodos((prev: Todo[]) => {
+    setTodos((prev: TodoType[]) => {
       const newTodos = prev.map((todo) => {
         if (todo.id === todoId) {
           todo.isComplete = !todo.isComplete;
@@ -40,20 +40,11 @@ function TodoList({ todos, setSwalConfigs, setTodos }: TodoListProps) {
   return (
     <>
       {todos.map((todo) => (
-        <div
-          className="Todo"
-          key={todo.id}
-          onClick={completeTodoHandler.bind(null, todo.id)}
-        >
-          <p
-            className={`${todo.isComplete ? "completed" : ""}`} // or completed className
-          >
-            {todo.title}
-          </p>
-          <div onClick={deleteHandler.bind(null, todo.id)}>
-            <FaTrash style={{ color: "red" }} />
-          </div>
-        </div>
+        <Todo
+          {...todo}
+          onComplete={completeTodoHandler}
+          onDelete={deleteHandler}
+        />
       ))}
     </>
   );

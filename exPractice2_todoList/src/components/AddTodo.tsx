@@ -1,6 +1,5 @@
-import { SetStateAction, useRef, useState } from "react";
-import { Todo } from "../todo.types";
-import { SweetAlert2Props } from "react-sweetalert2";
+import { useRef, useState } from "react";
+import { TodoType } from "../todo.types";
 
 interface AddTodoProps {
   //   onAddTodo: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -19,13 +18,13 @@ function AddTodo({ setTodos, setSwalConfigs }: AddTodoProps) {
     event.preventDefault();
 
     if (title.trim()) {
-      const newTodo: Todo = {
+      const newTodo: TodoType = {
         id: crypto.randomUUID(),
         title,
         isComplete: false,
       };
 
-      setTodos((prev: Todo[]) => {
+      setTodos((prev: TodoType[]) => {
         setTitle("");
         inputElemRef.current?.focus();
 
