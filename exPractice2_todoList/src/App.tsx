@@ -26,6 +26,11 @@ function App() {
         return [...prev, newTodo];
       });
     } else {
+      setSwalConfigs({
+        show: true,
+        text: "Enter Todo Infos correctly!",
+        icon: "info",
+      });
     }
   };
 
@@ -34,13 +39,13 @@ function App() {
       show: true,
       title: "Are you sure?",
       showDenyButton: true,
-      onConfirm: (result: sweetAlert2Result) => {
-        console.log(result);
+      onConfirm: (_: sweetAlert2Result) => {
         setTodos((prev) => {
           const newTodos = prev.filter((todo) => todo.id !== todoId);
           return newTodos;
         });
       },
+      icon: "warning",
     });
   };
 
