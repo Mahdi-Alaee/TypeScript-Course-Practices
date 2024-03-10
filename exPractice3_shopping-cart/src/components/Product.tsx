@@ -1,8 +1,12 @@
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { ProductType } from "../types";
+import { useContext } from "react";
+import { ContextData } from "../context/ContextData";
 
-function Product({ image, title, rating, price }: ProductType) {
+function Product({ id,image, title, rating, price }: ProductType) {
   const unFilledStars = 5 - rating.rate;
+
+  const contextData = useContext(ContextData);
 
   return (
     <div className="card">
@@ -24,7 +28,7 @@ function Product({ image, title, rating, price }: ProductType) {
           </div>
           <p>{price}$</p>
         </div>
-        <button>Add to Basket</button>
+        <button onClick={contextData?.addToCart.bind(null, id)}>Add to Basket</button>
       </main>
     </div>
   );

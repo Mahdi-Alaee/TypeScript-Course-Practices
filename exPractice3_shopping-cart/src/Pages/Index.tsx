@@ -6,6 +6,8 @@ import { ContextData } from "../context/ContextData";
 function Index() {
   const contextData = useContext(ContextData);
 
+
+
   return (
     <>
       <section>
