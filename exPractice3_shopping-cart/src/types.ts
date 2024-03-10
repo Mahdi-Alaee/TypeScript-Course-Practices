@@ -1,7 +1,7 @@
 export interface ProductType {
   id: string;
   title: string;
-  img: string;
+  image: string;
   price: number;
-  rate: 1 | 2 | 3 | 4 | 5;
+  rating: {count: number, rate: number};
 }
