@@ -3,7 +3,19 @@ import { ProductType } from "../types";
 import { useContext } from "react";
 import { ContextData } from "../context/ContextData";
 
-function Product({ id,image, title, rating, price }: ProductType) {
+interface ProductProps extends ProductType {
+  isShowCount: boolean;
+}
+
+function Product({
+  id,
+  image,
+  title,
+  rating,
+  price,
+  count,
+  isShowCount = false,
+}: ProductProps) {
   const unFilledStars = 5 - rating.rate;
 
   const contextData = useContext(ContextData);
@@ -28,7 +40,14 @@ function Product({ id,image, title, rating, price }: ProductType) {
           </div>
           <p>{price}$</p>
         </div>
-        <button onClick={contextData?.addToCart.bind(null, id)}>Add to Basket</button>
+        {isShowCount && (
+          <div className="product-count">
+            <p>Count: {count}</p>
+          </div>
+        )}
+        <button onClick={contextData?.addToCart.bind(null, id)}>
+          Add to Basket
+        </button>
       </main>
     </div>
   );

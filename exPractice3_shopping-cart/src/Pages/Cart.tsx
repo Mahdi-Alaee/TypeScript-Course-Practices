@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import "./Cart.css";
-import { AiFillStar, AiOutlineDelete, AiOutlineStar } from "react-icons/ai";
+import { AiOutlineDelete } from "react-icons/ai";
+import { ContextData } from "../context/ContextData";
+import Product from "../components/Product";
 export default function Cart() {
+  const contextData = useContext(ContextData);
+
   return (
     <>
-      {true ? ( // if shoppping cart is not empty
+      {contextData?.basketProducts.length! > 0 ? (
         <>
           <section className="cart-topbar">
             <p className="title">All Products In Basket:</p>
@@ -13,35 +17,9 @@ export default function Cart() {
             </button>
           </section>
           <main className="card-index">
-            <div className="card">
-              <img
-                src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-                alt=""
-              />
-              <main>
-                <p>Test Title ...</p>
-                <div className="card-details">
-                  <div>
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                  </div>
-                  <p>111$</p>
-                </div>
-                <div className="product-count">
-                  <p>Count: 22</p>
-                </div>
-                <button>Remove From Basket</button>
-              </main>
-            </div>
+            {contextData?.basketProducts.map((product) => (
+              <Product {...product} isShowCount key={product.id} />
+            ))}
           </main>
         </>
       ) : (

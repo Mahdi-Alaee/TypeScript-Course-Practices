@@ -1,11 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
-import { CartProductType, ProductType } from "../types";
+import { ProductType } from "../types";
 
 interface ContextType {
   allProducts: ProductType[];
   setAllProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
   basketProducts: ProductType[];
-  setBasketProducts: React.Dispatch<React.SetStateAction<CartProductType[]>>;
+  setBasketProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
   addToCart: (id: string) => void;
 }
 
@@ -15,7 +15,7 @@ export const ContextDataProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const [allProducts, setAllProducts] = useState<ProductType[]>([]);
-  const [basketProducts, setBasketProducts] = useState<CartProductType[]>([]);
+  const [basketProducts, setBasketProducts] = useState<ProductType[]>([]);
 
   const loadProducts = async () => {
     const res = await fetch("https://fakestoreapi.com/products");
@@ -39,7 +39,7 @@ export const ContextDataProvider: React.FC<React.PropsWithChildren> = ({
       if (!existedProduct) return [...prev, { ...targetPrd, count: 1 }];
       else {
         return prev.map((product) => {
-          if (product.id === existedProduct.id) product.count++;
+          if (product.id === existedProduct.id) product.count!++;
 
           return product;
         });
