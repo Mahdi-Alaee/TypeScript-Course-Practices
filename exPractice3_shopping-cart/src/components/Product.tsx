@@ -12,20 +12,20 @@ function Product({ img, title, rate, price }: ProductProps) {
 
   return (
     <div className="card">
-      <img src={img} alt="" />
+      <img src={img} />
       <main>
         <p>{title}</p>
         <div className="card-details">
           <div>
             {Array(rate)
               .fill("")
-              .map(() => (
-                <AiFillStar style={{ color: "orange" }} />
+              .map((star, index) => (
+                <AiFillStar key={index} style={{ color: "orange" }} />
               ))}
             {Array(unFilledStars)
               .fill("")
-              .map(() => (
-                <AiOutlineStar style={{ color: "orange" }} />
+              .map((star, index) => (
+                <AiOutlineStar key={index} style={{ color: "orange" }} />
               ))}
           </div>
           <p>{price}$</p>

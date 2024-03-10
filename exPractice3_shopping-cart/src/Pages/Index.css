@@ -1,0 +1,13 @@
+.app {
+    padding: 0rem 2rem;
+    min-height: 97vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+  
+  .app section {
+    position: relative;
+    z-index: 999;
+  }
