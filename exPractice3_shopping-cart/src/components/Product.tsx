@@ -3,6 +3,8 @@ import { ProductType } from "../types";
 import { useContext } from "react";
 import { ContextData } from "../context/ContextData";
 import { FaMinus, FaTrash } from "react-icons/fa";
+import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 interface ProductProps extends ProductType {
   isShowCount: boolean;
@@ -20,8 +22,21 @@ function Product({
   isShowRemoveFromBasket = false,
 }: ProductProps) {
   const unFilledStars = 5 - rating.rate;
-
   const contextData = useContext(ContextData);
+  const navigator = useNavigate();
+
+  const addToBasketClickHandler = () => {
+    contextData?.addToCart(id);
+    swal({
+      title: "محصول با موفقیت به سبد خرید افزوده شد",
+      buttons: ["حله", "برو به سبد خرید"],
+      icon: "success",
+    }).then((res) => {
+      if (res) {
+        navigator("/cart");
+      }
+    });
+  };
 
   return (
     <div className="card">
@@ -48,9 +63,7 @@ function Product({
             <p>Count: {count}</p>
           </div>
         )}
-        <button onClick={contextData?.addToCart.bind(null, id)}>
-          Add to Basket
-        </button>
+        <button onClick={addToBasketClickHandler}>Add to Basket</button>
         {isShowRemoveFromBasket && (
           <button onClick={contextData?.removeFromCart.bind(null, id)}>
             {count! > 1 ? <FaMinus color="red" /> : <FaTrash />}
