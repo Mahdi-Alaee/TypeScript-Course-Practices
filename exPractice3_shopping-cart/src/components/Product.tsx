@@ -2,9 +2,11 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { ProductType } from "../types";
 import { useContext } from "react";
 import { ContextData } from "../context/ContextData";
+import { FaMinus, FaTrash } from "react-icons/fa";
 
 interface ProductProps extends ProductType {
   isShowCount: boolean;
+  isShowRemoveFromBasket: boolean;
 }
 
 function Product({
@@ -15,6 +17,7 @@ function Product({
   price,
   count,
   isShowCount = false,
+  isShowRemoveFromBasket = false,
 }: ProductProps) {
   const unFilledStars = 5 - rating.rate;
 
@@ -48,6 +51,11 @@ function Product({
         <button onClick={contextData?.addToCart.bind(null, id)}>
           Add to Basket
         </button>
+        {isShowRemoveFromBasket && (
+          <button onClick={contextData?.removeFromCart.bind(null, id)}>
+            {count! > 1 ? <FaMinus color="red" /> : <FaTrash />}
+          </button>
+        )}
       </main>
     </div>
   );

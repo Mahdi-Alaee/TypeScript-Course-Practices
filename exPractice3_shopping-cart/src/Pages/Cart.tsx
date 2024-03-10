@@ -18,7 +18,7 @@ export default function Cart() {
           </section>
           <main className="card-index">
             {contextData?.basketProducts.map((product) => (
-              <Product {...product} isShowCount key={product.id} />
+              <Product key={product.id} {...product} isShowCount isShowRemoveFromBasket />
             ))}
           </main>
         </>

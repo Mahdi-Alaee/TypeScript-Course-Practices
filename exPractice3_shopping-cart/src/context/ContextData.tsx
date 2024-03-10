@@ -7,6 +7,7 @@ interface ContextType {
   basketProducts: ProductType[];
   setBasketProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
   addToCart: (id: string) => void;
+  removeFromCart: (id: string) => void;
 }
 
 export const ContextData = createContext<ContextType | null>(null);
@@ -47,6 +48,23 @@ export const ContextDataProvider: React.FC<React.PropsWithChildren> = ({
     });
   };
 
+  const removeFromCart = (id: string) => {
+    const targetPrd = basketProducts.find((product) => product.id === id)!;
+
+    setBasketProducts((prev) => {
+      if (targetPrd.count! > 1) {
+        return prev.map((product) => {
+          if (product.id === id) {
+            product.count!--;
+          }
+          return product;
+        });
+      } else {
+        return prev.filter((product) => product.id !== id);
+      }
+    });
+  };
+
   useEffect(() => {
     loadProducts();
   }, []);
@@ -63,6 +81,7 @@ export const ContextDataProvider: React.FC<React.PropsWithChildren> = ({
         basketProducts,
         setBasketProducts,
         addToCart,
+        removeFromCart,
       }}
     >
       {children}

@@ -24,7 +24,7 @@ function App() {
             </Link>
             <Link to="/cart">
               <AiOutlineShoppingCart className="shop-icon" />
-              <span>2</span>
+              <span>{context?.basketProducts.length!}</span>
             </Link>
           </header>
 
