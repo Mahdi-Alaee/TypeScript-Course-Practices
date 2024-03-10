@@ -1,28 +1,22 @@
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { ProductType } from "../types";
 
-interface ProductProps {
-  img: string;
-  title: string;
-  rate: 1 | 2 | 3 | 4 | 5;
-  price: number;
-}
-
-function Product({ img, title, rate, price }: ProductProps) {
-  const unFilledStars = 5 - rate;
+function Product({ image, title, rating, price }: ProductType) {
+  const unFilledStars = 5 - rating.rate;
 
   return (
     <div className="card">
-      <img src={img} />
+      <img src={image} />
       <main>
-        <p>{title}</p>
+        <p>{title.length > 20 ? title.slice(0, 20) + " . . ." : title}</p>
         <div className="card-details">
           <div>
-            {Array(rate)
+            {Array(Math.round(rating.rate))
               .fill("")
               .map((star, index) => (
                 <AiFillStar key={index} style={{ color: "orange" }} />
               ))}
-            {Array(unFilledStars)
+            {Array(Math.round(unFilledStars))
               .fill("")
               .map((star, index) => (
                 <AiOutlineStar key={index} style={{ color: "orange" }} />

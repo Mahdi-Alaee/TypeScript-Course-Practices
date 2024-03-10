@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import Product from "../components/Product";
 import "./Index.css";
+import { ContextData } from "../context/ContextData";
 
 function Index() {
+  const contextData = useContext(ContextData);
+
   return (
     <>
       <section>
@@ -9,18 +13,9 @@ function Index() {
       </section>
       <img className="index-first-bg" src="/hero-gradient.svg" />
       <main className="main-index">
-        <Product
-          title="Test Title ..."
-          img="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-          price={120}
-          rate={4}
-        />
-        <Product
-          title="Test Title ..."
-          img="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-          price={120}
-          rate={4}
-        />
+        {contextData?.allProducts.map((product) => (
+          <Product key={product.id} {...product} />
+        ))}
       </main>
     </>
   );
