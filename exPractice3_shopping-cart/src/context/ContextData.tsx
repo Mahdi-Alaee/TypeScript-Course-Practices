@@ -8,6 +8,7 @@ interface ContextType {
   setBasketProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
   addToCart: (id: string) => void;
   removeFromCart: (id: string) => void;
+  totalPrice: number;
 }
 
 export const ContextData = createContext<ContextType | null>(null);
@@ -17,6 +18,7 @@ export const ContextDataProvider: React.FC<React.PropsWithChildren> = ({
 }) => {
   const [allProducts, setAllProducts] = useState<ProductType[]>([]);
   const [basketProducts, setBasketProducts] = useState<ProductType[]>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const loadProducts = async () => {
     const res = await fetch("https://fakestoreapi.com/products");
@@ -70,7 +72,12 @@ export const ContextDataProvider: React.FC<React.PropsWithChildren> = ({
   }, []);
 
   useEffect(() => {
-    console.log(basketProducts);
+    let sum = 0;
+    basketProducts.forEach((product) => {
+      sum += product.price * product.count!;
+    });
+
+    setTotalPrice(sum);
   }, [basketProducts]);
 
   return (
@@ -82,6 +89,7 @@ export const ContextDataProvider: React.FC<React.PropsWithChildren> = ({
         setBasketProducts,
         addToCart,
         removeFromCart,
+        totalPrice,
       }}
     >
       {children}
