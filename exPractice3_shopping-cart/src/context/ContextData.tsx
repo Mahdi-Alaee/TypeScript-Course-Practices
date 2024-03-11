@@ -3,9 +3,7 @@ import { ProductType } from "../types";
 
 interface ContextType {
   allProducts: ProductType[];
-  setAllProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
   basketProducts: ProductType[];
-  setBasketProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
   addToCart: (id: string) => void;
   removeFromCart: (id: string) => void;
   totalPrice: number;
@@ -89,13 +87,11 @@ export const ContextDataProvider: React.FC<React.PropsWithChildren> = ({
     <ContextData.Provider
       value={{
         allProducts,
-        setAllProducts,
         basketProducts,
-        setBasketProducts,
         addToCart,
         removeFromCart,
         totalPrice,
-        clearCart
+        clearCart,
       }}
     >
       {children}
