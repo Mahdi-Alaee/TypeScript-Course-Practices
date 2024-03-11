@@ -9,6 +9,7 @@ interface ContextType {
   addToCart: (id: string) => void;
   removeFromCart: (id: string) => void;
   totalPrice: number;
+  clearCart: () => void;
 }
 
 export const ContextData = createContext<ContextType | null>(null);
@@ -67,6 +68,10 @@ export const ContextDataProvider: React.FC<React.PropsWithChildren> = ({
     });
   };
 
+  const clearCart = () => {
+    setBasketProducts([]);
+  };
+
   useEffect(() => {
     loadProducts();
   }, []);
@@ -90,6 +95,7 @@ export const ContextDataProvider: React.FC<React.PropsWithChildren> = ({
         addToCart,
         removeFromCart,
         totalPrice,
+        clearCart
       }}
     >
       {children}

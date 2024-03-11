@@ -14,7 +14,7 @@ export default function Cart() {
             <p className="title">
               All Products In Basket price: {contextData?.totalPrice.toFixed(2)}
             </p>
-            <button>
+            <button onClick={contextData?.clearCart}>
               Remove All Product <AiOutlineDelete className="delete-icon" />
             </button>
           </section>
